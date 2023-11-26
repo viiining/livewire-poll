@@ -17,4 +17,11 @@ class CreatePoll extends Component
     {
         $this->options[] = '';
     }
+
+    public function removeOption($index)
+    {
+        unset($this->options[$index]);
+        // 用於動態刪除陣列元素後，重新排列陣列索引
+        $this->options = array_values($this->options);
+    }
 }
