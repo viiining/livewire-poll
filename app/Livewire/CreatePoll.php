@@ -28,15 +28,14 @@ class CreatePoll extends Component
 
     public function createPoll()
     {
-        $poll = Poll::create([
+        // 透過 createMany() 方法，一次新增多筆資料，就不需要使用迴圈了    
+        Poll::create([
             'title' => $this->title,
-        ]);
-
-        foreach ($this->options as $option) {
-            $poll->options()->create([
-                'name' => $option,
-            ]);
-        }
+        ])->options()->createMany(
+            array_map(function ($option) {
+                return ['name' => $option];
+            }, $this->options)
+        );
 
         $this->reset(['title', 'options']);
     }
