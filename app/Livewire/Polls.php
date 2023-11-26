@@ -15,9 +15,10 @@ class Polls extends Component
         return view('livewire.polls', ['polls' => $polls]);
     }
 
-    public function vote($optionId)
-    {
-        $option = Option::findOrFail($optionId);
-        $option->votes()->create(); // 建立一筆投票紀錄
+    public function vote(Option $option)
+    {   
+        // use model binding to get the option id
+        // 這裡使用 Option $option 來取得選項的 id，並且透過關聯方法 votes() 來新增一筆投票資料
+        $option->votes()->create();
     }
 }
