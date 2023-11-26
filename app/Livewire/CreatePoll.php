@@ -8,7 +8,7 @@ use App\Models\Poll;
 class CreatePoll extends Component
 {
     public $title;
-    public $options = [''];
+    public $options = ['Your first option'];
 
     protected $rules = [
         'title' => 'required|min:6|max:255',
@@ -34,6 +34,11 @@ class CreatePoll extends Component
         unset($this->options[$index]);
         // 用於動態刪除陣列元素後，重新排列陣列索引
         $this->options = array_values($this->options);
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function createPoll()
