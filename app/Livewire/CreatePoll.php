@@ -37,5 +37,7 @@ class CreatePoll extends Component
                 'name' => $option,
             ]);
         }
+
+        $this->reset(['title', 'options']);
     }
 }
