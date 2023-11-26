@@ -3,11 +3,12 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Poll;
 
 class CreatePoll extends Component
 {
     public $title;
-    public $options = ['First Option'];
+    public $options = [''];
     public function render()
     {
         return view('livewire.create-poll');
@@ -23,5 +24,18 @@ class CreatePoll extends Component
         unset($this->options[$index]);
         // 用於動態刪除陣列元素後，重新排列陣列索引
         $this->options = array_values($this->options);
+    }
+
+    public function createPoll()
+    {
+        $poll = Poll::create([
+            'title' => $this->title,
+        ]);
+
+        foreach ($this->options as $option) {
+            $poll->options()->create([
+                'name' => $option,
+            ]);
+        }
     }
 }
